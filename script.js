@@ -1,17 +1,27 @@
+function stopTimer(){
+    clearInterval(intervalId)
+    intervalId=null;
+}
+
+
+
+
+
 const startBtn=document.querySelector("#start")
 const stopBtn=document.querySelector("#stop")
 const resetBtn=document.querySelector("#reset")
 const timer=document.querySelector("#timer")
-let timeRemaining=6
+let timeRemaining=50
 
-
+let intervalId=null
 function handleStartClick(){
-    let intervalId=setInterval(()=>{
+     if (intervalId!=null) {
+        return
+     }
+     intervalId=setInterval(()=>{
         console.log("timer is running")
         if(timeRemaining<=0){
             clearInterval(intervalId)
-            console.log("timer finished")
-            window.alert("TIMER IS OVER!")
             return;
         }
         timeRemaining--;
@@ -35,10 +45,13 @@ function handleStartClick(){
 
 
 function handleStopClick(){
-    console.log("I am handling the stop button's click")
+   stopTimer()
 }
 function handleResetClick(){
-    console.log("I am handling the reset button's click")
+    stopTimer()
+    timeRemaining=50
+    timer.textContent= "00:50"
+
 }
 startBtn.addEventListener("click",handleStartClick)
 
